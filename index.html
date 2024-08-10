@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Modal</title>
+    <style>
+        :root {
+            --white: #ffffff;
+            --black: #000000;
+            --onyx: #3C3744;
+            --sonic-silver: #757575;
+            --cultured: #f5f5f5;
+            --eerie-black: #1C1C1C;
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --fs-2: 24px;
+            --fs-7: 14px;
+            --weight-600: 600;
+            --transition-timing: all 0.3s ease-in-out;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .modal_run {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            z-index: 10;
+            animation: popup 1s ease-in-out 5s forwards;
+        }
+
+        @keyframes popup {
+            0% {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+            100% {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: all;
+            }
+        }
+
+        .modal_run.closed {
+            display: none;
+        }
+
+        .modal-close-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .modal-content_run {
+            position: relative;
+            max-width: 350px;
+            margin: 20px;
+            background: var(--white);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            z-index: 2;
+            animation: scaleUp 0.5s ease-in-out 5s forwards;
+        }
+
+        @keyframes scaleUp {
+            0% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--black);
+            border: none;
+            color: var(--white);
+            font-size: 16px;
+            padding: 2px 4px;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: opacity var(--transition-timing);
+        }
+
+        .newsletter {
+            padding: 50px 30px;
+            text-align: center;
+        }
+
+        .newsletter-title {
+            color: var(--onyx);
+            font-size: var(--fs-2);
+            font-weight: var(--weight-600);
+            margin-bottom: 10px;
+        }
+
+        .newsletter-desc {
+            color: var(--sonic-silver);
+            font-size: var(--fs-7);
+            line-height: 1.6;
+        }
+
+        .email-field {
+            font-size: var(--fs-7);
+            padding: 8px 16px;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--cultured);
+            margin-bottom: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .btn-newsletter {
+            background: var(--eerie-black);
+            color: var(--white);
+            font-size: var(--fs-7);
+            font-weight: var(--weight-600);
+            text-transform: uppercase;
+            padding: 10px 15px;
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition-timing);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-newsletter:hover {
+            background-color: transparent;
+            color: var(--black);
+            border: 1px solid var(--black);
+        }
+    </style>
+</head>
+<body>
+    <div class="modal_run" data-modal>
+        <div class="modal-close-overlay" data-modal-overlay></div>
+        <div class="modal-content_run">
+            <button class="modal-close-btn" data-modal-close>&times;</button>
+            <div class="newsletter">
+                <form action="#">
+                    <h3 class="newsletter-title">Nhận khuyến mãi lớn khi có tài khoản!</h3>
+                    <p class="newsletter-desc">
+                        Tận hưởng các <b>Ưu đãi lớn</b> đối với khách hàng có tạo tài khoản tại shop.
+                    </p>
+                    <input type="text" name="text" class="email-field" placeholder="Tên đăng nhập" required>
+                    <input type="password" name="password" class="email-field" placeholder="Mật khẩu" required>
+                    <button type="submit" class="btn-newsletter">Đăng nhập ngay</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        const modal = document.querySelector('[data-modal]');
+        const modalCloseBtn = document.querySelector('[data-modal-close]');
+        const modalCloseOverlay = document.querySelector('[data-modal-overlay]');
+
+        const closeModal = () => modal.classList.add('closed');
+
+        modalCloseOverlay.addEventListener('click', closeModal);
+        modalCloseBtn.addEventListener('click', closeModal);
+    </script>
+</body>
+</html>
